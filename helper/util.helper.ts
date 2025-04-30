@@ -10,9 +10,9 @@ export const UtilHelper = {
    */
   debounce: function (fn: any, delay: number = 300) {
     let timer: any;
-    return function () {
-      let context = this,
-        args = arguments;
+    return () => {
+      let context = this;
+      let args = arguments;
 
       clearTimeout(timer);
       timer = setTimeout(() => {

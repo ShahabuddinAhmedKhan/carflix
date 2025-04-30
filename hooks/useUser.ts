@@ -9,7 +9,7 @@ export function useUser(context = null) {
   const [user, setUser] = useState(null);
 
   const getUser = async () => {
-    const res = await UserService.getUserDetails(context);
+    const res = await UserService.getUserDetails({ context });
     let userData = null;
 
     if (res.data.status == "success") {
@@ -34,7 +34,7 @@ export function useUser(context = null) {
 export async function getUser(context = null) {
   let userData = null;
   try {
-    const res = await UserService.getUserDetails(context);
+    const res = await UserService.getUserDetails({ context });
 
     if (res.data.error) {
       userData = null;

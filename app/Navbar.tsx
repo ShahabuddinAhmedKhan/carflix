@@ -5,9 +5,12 @@ import DP from "../public/dp.png"
 import { TfiAlignJustify } from "react-icons/tfi";
 import { SidebarContext } from './context/ContextProvider';
 
+import Pop from './components/Pop';
+import Link from 'next/link';
+
 export default function Navbar() {
-    const {hidden,setHidden} = useContext(SidebarContext) as any
-    const handleSidebar =() => {
+    const { hidden, setHidden } = useContext(SidebarContext) as any
+    const handleSidebar = () => {
         setHidden(!hidden)
 
     }
@@ -24,14 +27,14 @@ export default function Navbar() {
                         <path d="M12.7027 4.28906L11.9738 4.25391H11.9996V3.5625H11.3035L11.9996 3.55078V2.85938H12.7027V4.28906ZM11.9598 21.1523C10.8184 21.1523 9.72852 20.4961 9.1168 19.4367L10.3332 18.7336C10.6895 19.35 11.327 19.7461 11.9574 19.7461C12.7098 19.7461 13.3402 19.3828 13.6402 18.7734L14.9012 19.3969C14.634 19.9383 14.2168 20.3859 13.6941 20.693C13.1832 20.993 12.5832 21.1523 11.9598 21.1523ZM9.70273 8.28516L8.46289 7.61953C8.77227 7.04297 9.24805 6.55078 9.83633 6.19687C10.427 5.84297 11.0902 5.65078 11.7559 5.64609H11.8168L11.7465 7.05H11.8027H11.7699C10.9262 7.05937 10.0941 7.55391 9.70273 8.28516Z" fill="black" />
                     </svg>
                 </div>
-                <div className='flex gap-4 items-center p-3 shadow-2xs rounded-2xl '>
-                    <Image src={DP} alt='profile picture' height={32} width={32} className='rounded-lg' />
+                <div className='flex gap-2 items-center p-3 shadow-2xs rounded-2xl '>
+                    <Link href={"/dashboard/profile"} className='flex gap-4 items-center'>
+                        <Image src={DP} alt='profile picture' height={32} width={32} className='rounded-lg' />
 
 
-                    <h1>Ali Eyad</h1>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M10.5 5.25003C10.5 5.25003 7.92231 8.75 7 8.75C6.07763 8.75 3.5 5.25 3.5 5.25" stroke="#6C7278" strokeWidth="0.875" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                        <h1>Ali Eyad</h1>
+                    </Link>
+                    <Pop />
 
                 </div>
 

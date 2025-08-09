@@ -11,12 +11,16 @@ import {
 import { orders } from '@/data/Works'
 import { Button } from "@/components/ui/button"
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
+import { usePathname } from 'next/navigation'
 
 export default function Page() {
     const [currentPage, setCurrentPage] = useState(1)
     const itemsPerPage = 10
     const [filteredOrder, setFilteredOrder] = useState(orders)
     const [active, setActive] = useState(0)
+    const path = usePathname()
+    
+    
 
 
     const totalPages = Math.ceil(filteredOrder.length / itemsPerPage)
@@ -62,7 +66,7 @@ export default function Page() {
            
 
             <div className='space-x-2 mb-3'>
-                <button onClick={() => handleFilter("All")} className={active == 1? "bg-[#1141CB] text-white py-1 px-4 text-xs rounded-[5px]" : 'border border-[#1141CB] text-[#1141CB] py-1 px-4 text-xs rounded-[5px]'  }>All Work</button>
+                <button onClick={() => handleFilter("All")} className={(active == 1 || path == "/manage")? "bg-[#1141CB] text-white py-1 px-4 text-xs rounded-[5px]" : 'border border-[#1141CB] text-[#1141CB] py-1 px-4 text-xs rounded-[5px]'  }>All Work</button>
                 <button onClick={() => handleFilter("Ongoing")} className={active == 2? "bg-[#1141CB] text-white py-1 px-4 text-xs rounded-[5px]" : 'border border-[#1141CB] text-[#1141CB] py-1 px-4 text-xs rounded-[5px]'  }>Ongoing Work</button>
                 <button onClick={() => handleFilter("Completed")} className={active == 3? "bg-[#1141CB] text-white py-1 px-4 text-xs rounded-[5px]" : 'border border-[#1141CB] text-[#1141CB] py-1 px-4 text-xs rounded-[5px]'  }>Completed Work</button>
             </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, Cell, XAxis } from "recharts"
 import upTrend from "../../public/frame.png"
 import {
     Card,
@@ -28,7 +28,13 @@ const chartData = [
     { month: "April", desktop: 73 },
     { month: "May", desktop: 209 },
     { month: "June", desktop: 214 },
-]
+    { month: "July", desktop: 198 },
+    { month: "August", desktop: 245 },
+    { month: "September", desktop: 187 },
+    { month: "October", desktop: 160 },
+    { month: "November", desktop: 226 },
+    { month: "December", desktop: 192 },
+];
 
 const chartConfig = {
     desktop: {
@@ -79,7 +85,14 @@ export function RightGraph() {
                             cursor={false}
                             content={<ChartTooltipContent hideLabel />}
                         />
-                        <Bar dataKey="desktop" fill="#1141CB" radius={8} />
+                        <Bar dataKey="desktop" radius={8} >
+                            {chartData.map((entry, index) => (
+                                <Cell
+                                    key={`cell-${index}`}
+                                    fill={entry.month === "August" ? "#1141CB" : "#EBF0FE"}
+                                />
+                            ))}
+                        </Bar>
                     </BarChart>
                 </ChartContainer>
             </CardContent>

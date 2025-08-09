@@ -28,7 +28,13 @@ const chartData = [
     { month: "April", dollar: 73, mobile: 190 },
     { month: "May", dollar: 78, mobile: 130 },
     { month: "June", dollar: 90, mobile: 140 },
-]
+    { month: "July", dollar: 102, mobile: 160 },
+    { month: "August", dollar: 115, mobile: 175 },
+    { month: "September", dollar: 98, mobile: 150 },
+    { month: "October", dollar: 105, mobile: 170 },
+    { month: "November", dollar: 120, mobile: 110 },
+    { month: "December", dollar: 140, mobile: 95 },
+  ];
 
 const chartConfig = {
     dollar: {

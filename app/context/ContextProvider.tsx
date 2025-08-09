@@ -1,4 +1,5 @@
 "use client"
+import '@ant-design/v5-patch-for-react-19'
 import React, { createContext, useState } from 'react'
 import { blog_posts } from '../data/cardData'
 import { profileData } from '../data/ProfileData'

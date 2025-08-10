@@ -3,6 +3,7 @@ import BlogButton from '../blog/bloglist/BlogButton'
 import Image from 'next/image'
 import { IoLocationOutline } from "react-icons/io5";
 import { CiTimer } from "react-icons/ci";
+import Link from 'next/link';
 
 export default function CardService() {
     const car_wash_data = {
@@ -18,9 +19,10 @@ export default function CardService() {
             "end": "15:00"
         }
     }
+    const slug = car_wash_data.title.toLowerCase().replace(/\s+/g, '-'); //"/\s+/g" regex expression "\s+" one or more special charecter, "g" applies globally
 
     return (
-        <div>
+        <Link href={`/services/${slug}`} className='no-underline text-black'>
             <div className='grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-6'>
                 <div className='shadow-sm rounded-xl p-3  self-stretch space-y-2 relative'>
                     <div >
@@ -44,6 +46,6 @@ export default function CardService() {
 
             </div>
 
-        </div>
+        </Link>
     )
 }

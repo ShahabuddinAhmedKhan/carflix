@@ -17,7 +17,11 @@ const CreateBlog = () => {
     const [filteredPost, setFilteredPost] = useState([])
     const { post, setPost } = useContext(SidebarContext)
     useEffect(() => {
-        const newFilterePost = post.filter(post => post.id == parseInt(id))
+        const singleId = Array.isArray(id) ? id[0] : id;
+
+    // Ensure `singleId` is a valid number
+    const parsedId = parseInt(singleId);
+        const newFilterePost = post.filter(post => post.id == parsedId)
         setFilteredPost(newFilterePost)
     }, [id])
 

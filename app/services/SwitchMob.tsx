@@ -1,11 +1,9 @@
-"use client"
+"use client";
 import React from 'react';
 import { Switch } from 'antd';
 
-const onChange = (checked: boolean) => {
-  console.log(`switch to ${checked}`);
+const SwitchMob: React.FC<{ value: boolean, onChange: (checked: boolean) => void }> = ({ value, onChange }) => {
+  return <Switch checked={value} onChange={onChange} />;
 };
-
-const SwitchMob: React.FC = () => <Switch defaultChecked onChange={onChange} />;
 
 export default SwitchMob;

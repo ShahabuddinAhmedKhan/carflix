@@ -3,8 +3,8 @@ import Image from 'next/image';
 import React, { useState } from 'react'
 import upload from "../../public/Group.png";
 
-export default function ClickToUpload() {
-    const [previewUrl, setPreviewUrl] = useState(null);
+export default function ClickToUpload({setPreviewUrl, previewUrl}) {
+    
 
     const handleOneFileChange = (event) => {
         // Log the event to check if it's firing

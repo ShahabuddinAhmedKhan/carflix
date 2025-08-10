@@ -16,6 +16,7 @@ export default function ContextProvider({ children }) {
     setHidden,
     post,
     setPost,
+    
     data, 
     setData
 

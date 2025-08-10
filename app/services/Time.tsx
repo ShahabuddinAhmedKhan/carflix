@@ -1,15 +1,24 @@
-"use client"
+"use client";
 import React from 'react';
-import { TimePicker } from 'antd';
+import { TimePicker as AntdTimePicker } from 'antd';  // Import the TimePicker from Ant Design
 import dayjs from 'dayjs';
 
-const format = 'HH:mm:ss';
+const { RangePicker } = AntdTimePicker;  // Destructure RangePicker from TimePicker
 
-const App: React.FC = () => {
-  const startTime = dayjs('12:08:23', 'HH:mm:ss');
-  const endTime = dayjs('12:08:23', 'HH:mm:ss');
+// Custom TimePicker component
+const TimePicker = ({ value, onChange }) => {
+  const format = 'HH:mm:ss';
+  console.log("Value:",value );
+  console.log("onChange:",onChange );
+  
 
-  return <TimePicker.RangePicker defaultValue={[startTime, endTime]} format={format} />;
+  return (
+    <RangePicker
+      format={format}
+      value={value ? [dayjs(value[0]), dayjs(value[1])] : null}
+      onChange={onChange}  // onChange to update the react-hook-form value
+    />
+  );
 };
 
-export default App;
+export default TimePicker;

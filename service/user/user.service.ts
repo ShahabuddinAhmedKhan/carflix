@@ -8,10 +8,10 @@ const config = {
 };
 
 export const UserService = {
-  login: async ({ email, password }: { email: string; password: string }) => {
+  login: async (formdata) => {
     const data = {
-      email: email,
-      password: password,
+      email: formdata.email,
+      password: formdata.password,
     };
     return await Fetch.post("/auth/login", data, config);
   },
@@ -51,7 +51,7 @@ export const UserService = {
     return await Fetch.get(`/user/me`, _config);
   },
 
-  findAll: async (context = null) => {
+  findAll: async (context = null, endpoint) => {
     const userToken = CookieHelper.get({ key: "token", context });
 
     const _config = {
@@ -61,7 +61,7 @@ export const UserService = {
       },
     };
 
-    return await Fetch.get(`/user`, _config);
+    return await Fetch.get(endpoint, _config);
   },
 
   findOne: async (id: number, context = null) => {

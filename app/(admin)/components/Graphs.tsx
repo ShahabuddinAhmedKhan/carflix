@@ -2,7 +2,7 @@
 
 import { TrendingUp } from "lucide-react"
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
-import upTrend from "../../public/frame.png"
+import upTrend from "../../../public/frame.png"
 import Image from 'next/image'
 import {
     Card,

@@ -1,11 +1,11 @@
 import { Roboto } from 'next/font/google'
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 import { AppConfig } from "@/config/app.config";
-import Sidebar from './Sidebar';
-import Navbar from './Navbar';
-import ContextProvider from './(admin)/context/ContextProvider';
 
+import ContextProvider from './context/ContextProvider';
+import Sidebar from '../Sidebar';
+import Navbar from '../Navbar';
 
 
 const roboto = Roboto({
@@ -26,16 +26,20 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="en" suppressHydrationWarning className={roboto.className}>
-      <body>
-        <ContextProvider>
-          <div >
-            {children}
-            
+    
+      <div>
+        
+          <div className='flex'>
+            <div className='fixed top-0 z-1 '><Sidebar></Sidebar></div>
+            <div className='w-full'>
+              <Navbar ></Navbar>
+              {children}
+
+            </div>
 
           </div>
-        </ContextProvider>
-      </body>
-    </html>
+        
+      </div>
+   
   );
 }

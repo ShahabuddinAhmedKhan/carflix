@@ -1,4 +1,4 @@
-import { serviceDetail } from '@/app/data/serviceDetail';
+import { serviceDetail } from '@/app/(admin)/data/serviceDetail';
 import Image from 'next/image';
 import React from 'react';
 import { DynamicBreadcrumb } from './DynamicBreadcrumb';

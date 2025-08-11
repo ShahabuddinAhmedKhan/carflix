@@ -1,5 +1,5 @@
 import React from 'react'
-import BlogButton from '../blog/bloglist/BlogButton'
+import BlogButton from '../(admin)/blog/bloglist/BlogButton'
 import Image from 'next/image'
 import { IoLocationOutline } from "react-icons/io5";
 import { CiTimer } from "react-icons/ci";

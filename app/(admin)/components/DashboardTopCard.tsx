@@ -1,5 +1,5 @@
 import React from 'react'
-import upTrend from "../../public/frame.png"
+import upTrend from "../../../public/frame.png"
 import Image from 'next/image'
 
 export default function DashboardTopCard() {

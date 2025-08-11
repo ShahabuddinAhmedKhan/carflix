@@ -7,7 +7,8 @@ import { useContext, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { SidebarContext } from "@/app/context/ContextProvider";
+import { SidebarContext } from "@/app/(admin)/context/ContextProvider";
+
 
 // Dynamically import JoditEditor to avoid SSR issues
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });

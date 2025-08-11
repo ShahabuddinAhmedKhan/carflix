@@ -2,7 +2,7 @@
 
 import { TrendingUp } from "lucide-react"
 import { Bar, BarChart, CartesianGrid, Cell, XAxis } from "recharts"
-import upTrend from "../../public/frame.png"
+import upTrend from "../../../public/frame.png"
 import {
     Card,
     CardContent,

@@ -3,10 +3,10 @@ import Image from 'next/image'
 import React, { useContext } from 'react'
 import DP from "../public/dp.png"
 import { TfiAlignJustify } from "react-icons/tfi";
-import { SidebarContext } from './context/ContextProvider';
 
-import Pop from './components/Pop';
 import Link from 'next/link';
+import Pop from './(admin)/components/Pop';
+import { SidebarContext } from './(admin)/context/ContextProvider';
 
 export default function Navbar() {
     const { hidden, setHidden } = useContext(SidebarContext) as any

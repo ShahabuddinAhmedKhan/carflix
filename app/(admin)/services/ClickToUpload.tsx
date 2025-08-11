@@ -1,7 +1,7 @@
 "use client"
 import Image from 'next/image';
 import React, { useState } from 'react'
-import upload from "../../public/Group.png";
+import upload from "../../../public/Group.png";
 
 export default function ClickToUpload({setPreviewUrl, previewUrl}) {
     

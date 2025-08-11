@@ -3,7 +3,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Link from 'next/link';
-import { SidebarContext } from '@/app/context/ContextProvider';
+import { SidebarContext } from '../../context/ContextProvider';
+
 
 
 
@@ -12,7 +13,7 @@ import { SidebarContext } from '@/app/context/ContextProvider';
 export default function BlogButton({pos}) {
     const { id, date, time, title, description, image } = pos;
     const {post, setPost} = useContext(SidebarContext)
-    console.log(post)
+
  
     
     

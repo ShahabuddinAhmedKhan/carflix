@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import upload from "../../public/Group.png"; // Default image
+import upload from "../../../public/Group.png"; // Default image
 import Link from "next/link";
 
 
@@ -76,6 +76,7 @@ const CreateBlog = () => {
   // Handle the file change (for selecting the image path)
   const handleFileChange = (event) => {
     // Log the event to check if it's firing
+
 
 
     const file = event.target.files ? event.target.files[0] : null;
@@ -173,6 +174,19 @@ const CreateBlog = () => {
               className="w-full px-3 py-2 border border-gray-200 rounded-md"
               placeholder="Type blog title"
               {...register("title", { required: "Title is required" })}
+            />
+            {errors?.title && <p className="text-red-500 text-sm">{errors?.title?.message as any}</p>}
+          </div>
+          {/* Sub title */}
+          <div className="mb-5">
+            <Label className="text-base font-semibold text-headerColor mb-2">
+              Sub-Title
+            </Label>
+            <input
+              type="text"
+              className="w-full px-3 py-2 border border-gray-200 rounded-md"
+              placeholder="Type blog Sub title"
+              {...register("sub-title", )}
             />
             {errors?.title && <p className="text-red-500 text-sm">{errors?.title?.message as any}</p>}
           </div>

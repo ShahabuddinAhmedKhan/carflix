@@ -175,38 +175,22 @@ export const UserService = {
 
   //
   create: async (
-    {
-      fname,
-      lname,
-      username,
-      email,
-      role_id,
-    }: {
-      fname: string;
-      lname: string;
-      username: string;
-      email: string;
-      role_id: number;
-    },
+   createPost,endpoint,
     context: any = null
   ) => {
+    console.log(createPost);
+    
     const userToken = CookieHelper.get({ key: "token", context });
 
     const _config = {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + userToken,
       },
     };
-    const data = {
-      fname: fname,
-      lname: lname,
-      username: username,
-      email: email,
-      role_id: role_id,
-    };
+    const data = createPost;
 
-    return await Fetch.post(`/user`, data, _config);
+    return await Fetch.post(`${endpoint}`, data, _config);
   },
 
   // TODO
@@ -236,5 +220,19 @@ export const UserService = {
     };
 
     return await Fetch.patch(`/user/${id}/password`, data, _config);
+  },
+  
+  delete: async (endPoint, context: any = null) => {
+    const userToken = CookieHelper.get({ key: "token", context });
+
+    const _config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + userToken,
+      },
+    };
+
+    // Immediately return the result of the DELETE request
+    return await Fetch.delete(endPoint, _config); // This will return the response from the server
   },
 };

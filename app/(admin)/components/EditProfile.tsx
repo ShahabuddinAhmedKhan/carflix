@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { SidebarContext } from "../context/ContextProvider";
 import Image from 'next/image'
 import { Textarea } from "@/components/ui/textarea";
-import upload from "../../public/Group.png";
+import upload from "../../../public/Group.png";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 

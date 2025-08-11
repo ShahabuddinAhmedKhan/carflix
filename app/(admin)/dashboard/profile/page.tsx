@@ -1,7 +1,8 @@
-import EditProfile from '@/app/components/EditProfile'
-import Profile from '@/app/components/Profile'
+
+
 import Image from 'next/image'
 import React from 'react'
+import Profile from '../../components/Profile'
 
 export default function page() {
     return (

@@ -1,10 +1,11 @@
 import React from 'react'
-import Login from './login/Login'
+import Login from './login/page'
+import { redirect } from 'next/navigation'
 
 const page = () => {
   return (
     <div>
-      <Login/>
+      {redirect("/login")}
     </div>
   )
 }

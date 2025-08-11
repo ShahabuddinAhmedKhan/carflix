@@ -4,10 +4,10 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useForm } from 'react-hook-form'
 import { UserService } from '@/service/user/user.service'
-import { redirect, useRouter } from 'next/navigation'
+import {useRouter } from 'next/navigation'
 import { CookieHelper } from '@/helper/cookie.helper'
 
-const Login = () => {
+const page = () => {
   const {handleSubmit, register} = useForm()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -18,10 +18,14 @@ const Login = () => {
     const formData = data
     try {
       const res = await UserService.login(formData)
+      console.log(res);
+      
       
    
       if (res?.data?.success == true){
         const token = res.data.authorization.token
+        console.log(res?.data?.success);
+        
         setLoading(false)
         CookieHelper.set({key:"token", value: token})
         
@@ -60,4 +64,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default page

@@ -9,7 +9,7 @@ export const SidebarContext = createContext(null)
 
 export default function ContextProvider({ children }) {
   const [hidden, setHidden] = useState(false)
-  const [post, setPost] = useState(blog_posts)
+  const [post, setPost] = useState([])
   const [data, setData] = useState(profileData)
   const info = {
     hidden,

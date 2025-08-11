@@ -15,16 +15,32 @@ const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 const CreateBlog = () => {
     const { id } = useParams()
+    console.log(id);
+
     const [filteredPost, setFilteredPost] = useState([])
     const { post, setPost } = useContext(SidebarContext)
-    useEffect(() => {
-        const singleId = Array.isArray(id) ? id[0] : id;
 
-    // Ensure `singleId` is a valid number
-    const parsedId = parseInt(singleId);
-        const newFilterePost = post.filter(post => post.id == parsedId)
-        setFilteredPost(newFilterePost)
-    }, [id])
+
+    // useEffect(() => {
+
+
+    //     // Ensure `singleId` is a valid number
+
+    //     const newFilterePost = post.filter(post => post.id == id)
+        
+    //     setFilteredPost(newFilterePost)
+
+    // }, [id, post])
+    // console.log(filteredPost);
+
+    useEffect(() => {
+        
+    },[])
+
+
+
+
+
 
 
 
@@ -114,7 +130,7 @@ const CreateBlog = () => {
     // Handle form submission
     const onSubmit = data => {
         console.log(data);
-        
+
         const updated = {
             ...filteredPost[0],
             title: data.title,

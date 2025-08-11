@@ -8,6 +8,7 @@ import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { SidebarContext } from "@/app/(admin)/context/ContextProvider";
+import { UserService } from "@/service/user/user.service";
 
 
 // Dynamically import JoditEditor to avoid SSR issues
@@ -34,7 +35,18 @@ const CreateBlog = () => {
     // console.log(filteredPost);
 
     useEffect(() => {
-        
+        const oneBlog = async (id) => {
+            try {
+                const res = await UserService.findOne(id)
+                console.log(res);
+                
+            } catch (error) {
+                console.log(error);
+                
+            }
+        }
+        oneBlog(id)
+            
     },[])
 
 

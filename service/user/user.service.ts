@@ -64,7 +64,7 @@ export const UserService = {
     return await Fetch.get(endpoint, _config);
   },
 
-  findOne: async (id: number, context = null) => {
+  findOne: async (id, context = null) => {
     const userToken = CookieHelper.get({ key: "token", context });
 
     const _config = {
@@ -74,7 +74,7 @@ export const UserService = {
       },
     };
 
-    return await Fetch.get(`/user/${id}`, _config);
+    return await Fetch.get(`/admin/blog/${id}`, _config);
   },
 
   findOneByUsername: async ({

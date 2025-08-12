@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useState } from 'react'
 import upload from "../../../public/Group.png";
 
-export default function ClickToUpload({setPreviewUrl, previewUrl}) {
+export default function ClickToUpload({setPreviewUrl, previewUrl, setFile}) {
     
 
     const handleOneFileChange = (event) => {
@@ -15,6 +15,7 @@ export default function ClickToUpload({setPreviewUrl, previewUrl}) {
         if (file) {
           // Set the file name in the state (no need for base64 or preview URL)
           setPreviewUrl(file.name); // Save the file name instead of base64
+          setFile(file)
         }
       };
   return (

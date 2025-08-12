@@ -18,35 +18,51 @@ import ClickToUpload from "./ClickToUpload";
 import { Controller, useForm } from "react-hook-form";
 import dayjs from "dayjs";
 import { useState } from "react";
+import { UserService } from "@/service/user/user.service";
+import { useRouter } from "next/navigation";
 
 export function Modal() {
     const [open, setOpen] = useState(false);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [file, setFile] = useState(null)
+    const router = useRouter()
+
     
     const { handleSubmit, reset, register, control } = useForm({
         defaultValues: {
-            serviceName: "",
-            serviceCategory: "",
+            service_name: "",
+            service_category: "",
             location: "",
-            time: "",
-            teamSize: "",
+            available_time: "",
+            team_size: "",
             mobile: false,
             garage: false,
             descriptions: "",
-            image: "",
+            additional_image: "",
         },
     });
 
     const onSubmit = (data) => {
-        if (Array.isArray(data.time) && data.time.length === 2) {
-            const [start, end] = data.time;
-            data.start = dayjs(start).format("HH:mm:ss");
-            data.end = dayjs(end).format("HH:mm:ss");
-            delete data.time;
+        if (Array.isArray(data.available_time) && data.available_time.length === 2) {
+            const [start, end] = data.available_time;
+            const startTime = dayjs(start).format("HH:mm:ss");
+            const endTime = dayjs(end).format("HH:mm:ss");
+            data.available_time = `${startTime} AM ${endTime} PM`;
         }
+        data.additional_image = file;
+        const createService = async() => {
+            const res = await UserService.create(data,"/admin/services" )
+            console.log(res);
+            
+
+        }
+      
+        createService()
         console.log(data);
         setOpen(false); // Close dialog after submit
         reset(); // Reset form
+        router.push("/services")
+
     };
 
     return (
@@ -69,7 +85,7 @@ export function Modal() {
                                 <Input
                                     id="serviceName"
                                     name="serviceName"
-                                    {...register("serviceName")}
+                                    {...register("service_name")}
                                 />
                             </div>
 
@@ -79,7 +95,7 @@ export function Modal() {
                                 <Input
                                     id="serviceCategory"
                                     name="serviceCategory"
-                                    {...register("serviceCategory")}
+                                    {...register("service_category")}
                                 />
                             </div>
 
@@ -97,7 +113,7 @@ export function Modal() {
                             <div className="grid gap-3">
                                 <Label htmlFor="time-picker" className="font-semibold">Time</Label>
                                 <Controller
-                                    name="time"
+                                    name="available_time"
                                     control={control}
                                     render={({ field }) => (
                                         <TimePicker
@@ -115,7 +131,7 @@ export function Modal() {
                                 <Input
                                     id="teamSize"
                                     name="teamSize"
-                                    {...register("teamSize")}
+                                    {...register("team_size")}
                                 />
                             </div>
 
@@ -157,14 +173,14 @@ export function Modal() {
                             {/* Additional Image */}
                             <div className="grid gap-3">
                                 <Label htmlFor="image" className="font-semibold">Additional Image</Label>
-                                <ClickToUpload setPreviewUrl={setPreviewUrl} previewUrl={previewUrl} />
+                                <ClickToUpload setPreviewUrl={setPreviewUrl} previewUrl={previewUrl} setFile = {setFile}/>
                             </div>
                         </div>
                         <DialogFooter className="sm:justify-between mt-4">
                             <DialogClose asChild>
                                 <Button variant="outline">Cancel</Button>
                             </DialogClose>
-                            <Button type="submit" className="bg-[#1141CB] text-white">Save</Button>
+                            <Button type="submit" className="bg-[#1141CB] text-white" >Save</Button>
                         </DialogFooter>
                     </form>
                 </DialogContent>

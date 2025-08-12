@@ -51,7 +51,7 @@ export const UserService = {
     return await Fetch.get(`/auth/me`, _config);
   },
 
-  findAll: async (context = null, endpoint) => {
+  findAll: async (endpoint,context = null) => {
     const userToken = CookieHelper.get({ key: "token", context });
 
     const _config = {

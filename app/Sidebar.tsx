@@ -3,14 +3,16 @@ import React, { useContext, useState } from 'react'
 import logo from "../public/logo.png"
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import { ImCross } from "react-icons/im";
 import { SidebarContext } from './(admin)/context/ContextProvider'
+import { CookieHelper } from '@/helper/cookie.helper'
 
 
 export default function Sidebar() {
   const path = usePathname()
+  const router = useRouter()
   const { hidden, setHidden } = useContext(SidebarContext) as any
 
   const handleHidden = () => {
@@ -33,6 +35,12 @@ export default function Sidebar() {
     }
     return path.startsWith(href)
   }
+const handleLogout = () => {
+  CookieHelper.destroy({key: "token "})
+  router.push("/login")
+
+}
+  
   const linkClasses = (href) => `flex px-[24px] py-[16px] text-[14px]  gap-[6px]  mx-4 rounded-lg ${isActive(href) ? "bg-[#1141CB1A] text-[#1141CB]" : ""} hover:bg-[#1141CB1A] hover:text-[#1141CB]`
 
   const dashboard = (fill) => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -72,7 +80,7 @@ const services = (fill) => <svg stroke="currentColor" fill={fill} strokeWidth="0
     <div className={`absolute top-0 transition-left duration-100 ease-in-out  ${hidden ? "left-0" : "-left-300"} md:left-0   z-14 flex w-screen md:w-[280px]`}>
       <div className='w-[280px]  bg-[#FAFBFC]  justify-between h-screen border-1 border-gray-200   md:flex md:flex-col flex-1/2'>
         <div className=''>
-          <div className={`relative  flex ${hidden ? "justify-between px-5" : "justify-center"}  pt-[21px] pb-[17px]`}>
+          <div className={`relative  flex ${hidden ? "justify-between px-5" : "justify-center"}  pt-[21px] pb-[17px] `}>
             <Image src={logo} alt="logo" width={138} height={29} priority className="object-contain" />
             <ImCross onClick={handleHidden} className={"md:hidden block"} />
 
@@ -105,7 +113,7 @@ const services = (fill) => <svg stroke="currentColor" fill={fill} strokeWidth="0
 
           </div>
         </div>
-        <div className='flex px-[24px] py-[16px] text-[14px] gap-[6px] hover:bg-[#1141CB1A] hover:text-[#1141CB] mx-4 rounded-lg'>
+        <div onClick={handleLogout} className='flex px-[24px] py-[16px] text-[14px] gap-[6px] hover:bg-[#1141CB1A] hover:text-[#1141CB] mx-4 rounded-lg'>
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path fillRule="evenodd" clipRule="evenodd" d="M9.07867 2.12735C9.2845 2.53899 9.11767 3.03955 8.706 3.24538L4.62733 5.28472C4.345 5.42588 4.16667 5.71443 4.16667 6.03008V13.97C4.16667 14.2856 4.345 14.5742 4.62733 14.7153L8.706 16.7547C9.11767 16.9605 9.2845 17.4611 9.07867 17.8727C8.87283 18.2843 8.37233 18.4512 7.96066 18.2453L3.88197 16.206C3.03501 15.7826 2.5 14.9169 2.5 13.97V6.03008C2.5 5.08315 3.03501 4.21749 3.88197 3.79401L7.96066 1.75466C8.37233 1.54884 8.87283 1.7157 9.07867 2.12735Z" fill="#121212" />
             <path fillRule="evenodd" clipRule="evenodd" d="M14.2644 7.14695C14.5758 7.01797 14.9342 7.08926 15.1726 7.3276L17.2559 9.41091C17.5813 9.73633 17.5813 10.264 17.2559 10.5894L15.1726 12.6727C14.9342 12.9111 14.5758 12.9824 14.2644 12.8534C13.953 12.7244 13.75 12.4206 13.75 12.0835V10.8335H8.33333C7.8731 10.8335 7.5 10.4604 7.5 10.0002C7.5 9.53991 7.8731 9.16683 8.33333 9.16683H13.75V7.91685C13.75 7.5798 13.953 7.27594 14.2644 7.14695Z" fill="#121212" />

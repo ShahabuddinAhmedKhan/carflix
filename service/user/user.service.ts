@@ -48,7 +48,7 @@ export const UserService = {
       },
     };
 
-    return await Fetch.get(`/user/me`, _config);
+    return await Fetch.get(`/auth/me`, _config);
   },
 
   findAll: async (context = null, endpoint) => {
@@ -100,63 +100,21 @@ export const UserService = {
   },
 
   update: async (
-    {
-      fname,
-      lname,
-      date_of_birth,
-      city,
-      country,
-      organization,
-      recipient_name,
-      recipient_zip_code,
-      recipient_country,
-      recipient_state,
-      recipient_city,
-      recipient_address,
-      recipient_phone_number,
-    }: {
-      fname: string;
-      lname: string;
-      date_of_birth: string;
-      city: string;
-      country: string;
-      organization: string;
-      recipient_name: string;
-      recipient_zip_code: string;
-      recipient_country: string;
-      recipient_state: string;
-      recipient_city: string;
-      recipient_address: string;
-      recipient_phone_number: string;
-    },
+    updatedContent, endPoint,
     context = null
   ) => {
     const userToken = CookieHelper.get({ key: "token", context });
 
     const _config = {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + userToken,
       },
     };
 
-    const data = {
-      fname: fname,
-      lname: lname,
-      date_of_birth: date_of_birth,
-      city: city,
-      country: country,
-      organization: organization,
-      recipient_name: recipient_name,
-      recipient_zip_code: recipient_zip_code,
-      recipient_country: recipient_country,
-      recipient_state: recipient_state,
-      recipient_city: recipient_city,
-      recipient_address: recipient_address,
-      recipient_phone_number: recipient_phone_number,
-    };
+    const data = updatedContent;
 
-    return await Fetch.patch(`/user`, data, _config);
+    return await Fetch.patch(endPoint, data, _config);
   },
 
   updateAvatar: async (data: any, context = null) => {

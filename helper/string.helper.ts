@@ -12,6 +12,8 @@ export const StringHelper = {
     } else {
       result = text;
     }
+    console.log(result);
+    
     return result;
   },
 

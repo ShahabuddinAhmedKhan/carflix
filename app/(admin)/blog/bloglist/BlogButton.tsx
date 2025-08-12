@@ -47,10 +47,10 @@ export default function BlogButton({ pos }) {
     return (
         <div className="relative">
             <div>
-                <button onClick={handleHidden} className='absolute  w-full flex justify-end pr-8 pt-3 text-white lg:text-2xl z-50 cursor-pointer'>
+                <button onClick={handleHidden} className='absolute  w-full flex justify-end pr-5 pt-5 text-white lg:text-2xl z-50 cursor-pointer'>
                     <BsThreeDotsVertical />
                 </button>
-                <div className={`absolute ${hidden ? "flex" : "hidden"} w-full justify-end pr-12 pt-8 z-40`}>
+                <div className={`absolute ${hidden ? "flex" : "hidden"} w-full justify-end pr-8 pt-11 z-40`}>
                     <div className={` bg-white  border-2 flex-col  max-w-[98px] rounded-lg flex}`}>
                         <div className=' flex gap-1 items-center p-2'>
                             <Image src={"/edit.png"} alt='edit button' width={16} height={16} />

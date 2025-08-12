@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import Card from '../(admin)/blog/bloglist/Card'
+
 import CardService from './CardService'
 import { Modal } from './Modal'
 

@@ -9,16 +9,16 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { SidebarContext } from "@/app/(admin)/context/ContextProvider";
 import { UserService } from "@/service/user/user.service";
-
+import upload from "../../../../../public/Group.png"; 
 
 // Dynamically import JoditEditor to avoid SSR issues
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 const CreateBlog = () => {
     const { id } = useParams()
-    console.log(id);
 
-    const [filteredPost, setFilteredPost] = useState([])
+
+    const [filteredPost, setFilteredPost] = useState(null)
     const { post, setPost } = useContext(SidebarContext)
 
 
@@ -28,7 +28,7 @@ const CreateBlog = () => {
     //     // Ensure `singleId` is a valid number
 
     //     const newFilterePost = post.filter(post => post.id == id)
-        
+
     //     setFilteredPost(newFilterePost)
 
     // }, [id, post])
@@ -38,16 +38,18 @@ const CreateBlog = () => {
         const oneBlog = async (id) => {
             try {
                 const res = await UserService.findOne(id)
-                console.log(res);
-                
+                setFilteredPost(res.data.data);
+
             } catch (error) {
                 console.log(error);
-                
+
             }
         }
         oneBlog(id)
-            
-    },[])
+
+    }, [])
+
+
 
 
 
@@ -67,17 +69,22 @@ const CreateBlog = () => {
             defaultValues:
             {
                 title: "",
-                tag: "",
-                content: ""
+                category: "",
+                content: "",
+                sub_title: ""
             }
         });
     useEffect(() => {
-        if (filteredPost.length > 0) {
-            const post = filteredPost[0];
+
+        if (filteredPost) {
+
+
+
             reset({
-                title: post.title,
-                tag: "",                  // or post.tag if you have one
-                content: post.description
+                title: filteredPost.title,
+                category: filteredPost.category,                  // or filteredPost.category if you have one
+                content: filteredPost.content,
+                sub_title: filteredPost.sub_title
             });
         }
     }, [filteredPost, reset]);
@@ -137,17 +144,59 @@ const CreateBlog = () => {
         ],
     };
 
+    const handleFileChange = (event) => {
+        // Log the event to check if it's firing
+        const fileView = event.target.files
+        console.log(fileView);
+
+
+
+
+        const file = event.target.files ? event.target.files[0] : null;
+        if (file) {
+
+
+
+
+
+            // Save the file object to state for further processing if needed
+            setThumbnail(file);
+
+
+            // Set the file name in the state (no need for base64 or preview URL)
+            setPreviewUrl(file.name); // Save the file name instead of base64
+        }
+    };
 
 
     // Handle form submission
     const onSubmit = data => {
+  
+        
+        data.thumbnail = thumbnail
         console.log(data);
+        
+
+
+
+
+
+
+        if (!filteredPost) return;
+
+
 
         const updated = {
-            ...filteredPost[0],
+            ...filteredPost,
             title: data.title,
             description: data.content,
         };
+
+        const updatingBlog = async () => {
+            const res = await UserService.update(data, `/admin/blog/${id}`)
+            console.log(res);
+
+        }
 
         // map over the old list, swapping in `updated` at the right spot:
         const updatedList = post.map(p =>
@@ -158,7 +207,8 @@ const CreateBlog = () => {
         setPost(updatedList);
 
         // now `updatedList` is your new array—log it if you want:
-        console.log("Final:", updatedList);
+        updatingBlog()
+
         router.push("/blog/bloglist")
 
         // navigate away or give feedback…
@@ -185,9 +235,34 @@ const CreateBlog = () => {
                     <div className="border-1 border-gray-200 rounded-md p-4 mt-5">
                         <h1 className="font-semibold">Thumbnail Image</h1>
                         <div className="bg-[#FAFBFC] border-1 border-dashed p-4 mt-4 rounded-sm flex flex-col items-center">
-                            <Image src={filteredPost?.length > 0 ? filteredPost[0]?.image : "/p.jpg"} alt="image" height={900} width={900} className="w-screen object-cover h-[315px] border-2" priority />
 
+                            {/* thumnail image */}
+                            <div className="bg-[#FAFBFC] border-1 border-dashed p-4 mt-4 rounded-sm flex flex-col items-center">
+                                    {/* Image Preview */}
+                                    {previewUrl ? (
+                                        <Image src={`/${previewUrl}`} alt="upload image" width={80} height={80} /> // Display the file name here instead of the image preview
+                                    ) : (
+                                        <Image src={upload} alt="upload image" priority />
+                                    )}
+                                    <p>Only support .jpg, .png</p>
+                                    {/* Hidden file input */}
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleFileChange} // This should be triggered correctly
+                                        className="hidden"
+                                        id="thumbnail-upload"
+                                    // Register file input to form
+                                    />
 
+                                    <button
+                                        type="button"
+                                        onClick={() => document.getElementById("thumbnail-upload")?.click()} // Trigger file input click
+                                        className="bg-[#1141CB] text-white py-3 px-4 text-xs rounded-sm"
+                                    >
+                                        Click To Upload
+                                    </button>
+                                </div>
 
                         </div>
                     </div>
@@ -199,7 +274,7 @@ const CreateBlog = () => {
                         </Label>
                         <select
                             className="w-full px-3 py-2 border border-gray-200 rounded-md"
-                            {...register("tag", { required: "Category is required" })}
+                            {...register("category", { required: "Category is required" })}
                         >
                             <option value="Car Wash">Car Wash</option>
                             <option value="Wheel Fix">Wheel Fix</option>
@@ -217,9 +292,20 @@ const CreateBlog = () => {
                             type="text"
                             className="w-full px-3 py-2 border border-gray-200 rounded-md"
                             placeholder="Type blog title"
-                            defaultValue={filteredPost?.length > 0 && filteredPost[0].title}
-
                             {...register("title", { required: "Title is required" })}
+                        />
+                        {errors?.title && <p className="text-red-500 text-sm">{errors?.title?.message as any}</p>}
+                    </div>
+                    {/* subtitle */}
+                    <div className="mb-5">
+                        <Label className="text-base font-semibold text-headerColor mb-2">
+                            Sub Title
+                        </Label>
+                        <input
+                            type="text"
+                            className="w-full px-3 py-2 border border-gray-200 rounded-md"
+                            placeholder="Type blog title"
+                            {...register("sub_title", { required: "Title is required" })}
                         />
                         {errors?.title && <p className="text-red-500 text-sm">{errors?.title?.message as any}</p>}
                     </div>
@@ -231,7 +317,7 @@ const CreateBlog = () => {
                         </Label>
                         <Controller
                             name="content"
-                            defaultValue={filteredPost?.length > 0 ? filteredPost[0]?.description : ""}
+                            defaultValue={filteredPost ? filteredPost.content : ""}
                             control={control}
                             render={({ field }) => (
                                 <JoditEditor

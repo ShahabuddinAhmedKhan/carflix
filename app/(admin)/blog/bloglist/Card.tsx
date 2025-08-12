@@ -6,6 +6,7 @@ import parse from "html-react-parser";
 import { UserService } from '@/service/user/user.service';
 import { formatDateAndTime } from './FormatTime';
 import { SidebarContext } from '../../context/ContextProvider';
+import { StringHelper } from '@/helper/string.helper';
 
 export default function Card() {
 const {post, setPost} = useContext(SidebarContext)
@@ -42,6 +43,7 @@ if (loading) {
 
 
 
+
   return (
     <div className='grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-6'>
         {
@@ -57,7 +59,7 @@ if (loading) {
                         
                     </div>
                     <h1 className='font-bold'>{pos.title} </h1>
-                    <div dangerouslySetInnerHTML={{ __html: pos.content }}>
+                    <div dangerouslySetInnerHTML={{ __html: StringHelper.textShorten(pos.content) }}>
                     </div>
                 </div>
             )

@@ -1,12 +1,14 @@
 "use client"
 import Image from 'next/image'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import DP from "../public/dp.png"
 import { TfiAlignJustify } from "react-icons/tfi";
 
 import Link from 'next/link';
 import Pop from './(admin)/components/Pop';
 import { SidebarContext } from './(admin)/context/ContextProvider';
+import { UserService } from '@/service/user/user.service';
+import { CookieHelper } from '@/helper/cookie.helper';
 
 export default function Navbar() {
     const { hidden, setHidden } = useContext(SidebarContext) as any
@@ -14,6 +16,24 @@ export default function Navbar() {
         setHidden(!hidden)
 
     }
+
+    const [name, setName] = useState(null)
+
+    useEffect(() => {
+        
+        
+        const token = CookieHelper.get({key: "token"})
+        console.log(token);
+        
+        const updateUser = async() => {
+            const res = await UserService.getUserDetails({token : token})
+            setName(res.data.data.name);
+
+            
+        }
+        updateUser()
+    },[])
+
     return (
         <div className='flex justify-between items-center border-b-1 border-gray-200'>
             <div onClick={handleSidebar} className='ml-8'>
@@ -28,7 +48,7 @@ export default function Navbar() {
                         <Image src={DP} alt='profile picture' height={32} width={32} className='rounded-lg' />
 
 
-                        <h1>Ali Eyad</h1>
+                        <h1>{name && name }</h1>
                         <button  >
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                                 <path d="M10.5 5.25003C10.5 5.25003 7.92231 8.75 7 8.75C6.07763 8.75 3.5 5.25 3.5 5.25" stroke="#6C7278" strokeWidth="0.875" strokeLinecap="round" strokeLinejoin="round" />
